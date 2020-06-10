@@ -12,7 +12,7 @@
 （2）去掉png_list中包含字母'u'的文件
 """
 file_list = ["chuman.png", "wechat.exe", "qq.dmg", "a.pngbcd.png", "mumu.exe", "dingding.jpg", "a.png" ]
-png_list = [x for x in file_list if '.png' in x]
+png_list = [x for x in file_list if x.endswith('.png')]
 print(png_list)
 print([x for x in png_list if 'u' not in x])
 
@@ -21,9 +21,9 @@ print([x for x in png_list if 'u' not in x])
 2、生成一个包含1到100的数字列表num_list = [1, 2, ..., 100]，计算列表中所有偶数的和
 """
 num_lsit = [ x for x in range(1, 101)]
-print('num_list = {0}'.format(num_lsit))
+print(f"num_list = {num_lsit}")
 sum_num = sum([x for x in range(1, 101) if x % 2 == 0])
-print('列表中所有偶数的和 = %d ' % sum_num)
+print(f"列表中所有偶数的和 = {sum_num}")
 
 
 
@@ -35,9 +35,7 @@ sum = 0
 while sum < 100:
     i = i + 1
     sum = sum + i
-    # print(i)
-    # print('sum = %d ' % sum)
-print('sum = {0} , i = {1}'.format(sum, i))
+print(f"sum = {sum} , i = {i}")
 
 
 
@@ -57,9 +55,9 @@ resource_dict = {"status":"ok","data":{"list":[{"id":"15243","title":"Q版音茵
 data_list = resource_dict['data']['list']
 for i in range (0, len(data_list)):
     if data_list[i]['has_buy'] == 1:
-        print('已购买的资源id=%s ' % data_list[i]['id'])
+        print(f"已购买的资源id={data_list[i]['id']}")
 
 for i in range (0, len(data_list)):
     if data_list[i]['price_type'] == 2:
-        print('价格类型为金币的资源id=%s ' % data_list[i]['id'])
+        print(f"价格类型为金币的资源id={data_list[i]['id']}")
 
