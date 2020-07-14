@@ -1,0 +1,3 @@
+demo: {"api_url": "https://api-demo.chumanapp.com", "user_id": 1}
+api2: {"api_url": "https://api-api2.chumanapp.com", "user_id": 2}
+api: {"api_url": "https://api.chumanapp.com", "user_id": 3}
