@@ -29,7 +29,7 @@ with open('data/user.txt') as f:     # 文件的读取操作，执行完以下�
 """
 
 
-def print_list(num_list=[]):
+def print_list(num_list: tuple):
     for i in num_list:
         if isinstance(i, list):
             print_list(i)
@@ -39,6 +39,7 @@ def print_list(num_list=[]):
 
 list1 = [1, 20, 30, [1, 44, [4, 37, [15, 24, 33, [18, [22, 12, 45, [37, 15]]]]]]]
 print_list(list1)
+
 
 
 """

@@ -12,24 +12,38 @@ api: {"api_url": "https://api.chumanapp.com", "user_id": 3}
 """
 
 
-# def find_second_max_num(num_list=[]):
-#     if len(num_list) < 2:
-#         print("该数组至少大于等于2个数")
-#     else:
-#         num_list.sort(reverse = True)   # reverse = True 降序排序
-#         max_num = num_list[0]
-#         num_list.remove(max_num)       # 去除最大数值相同的项
-#         print(num_list)
-#         print(len(num_list))
-#         if len(num_list):   # 判断数组里是否仍有值
-#             second_max_num = num_list[1]
-#         else:
-#             print('改数组没有第2大的数字')
-#         print(f"数组中第二大的数为{second_max_num}")
-#
-#
-# # find_second_max_num([342, 123, 23, 43, 72, 903, 903])
-# find_second_max_num([903, 903])
+def find_second_max_num(num_list: tuple):
+    tmp_list = []
+    for i in num_list:
+        if isinstance(i, list):
+            find_second_max_num(i)
+            if i not in tmp_list:
+                if isinstance(i, int):
+                    tmp_list.append()
+
+
+
+
+
+    # tmp_list = []
+    # if len(num_list) < 2:
+    #     print("该数组至少大于等于2个数")
+    # else:
+    #
+    #     num_list.sort(reverse = True)   # reverse = True 降序排序
+    #     max_num = num_list[0]
+    #     num_list.remove(max_num)       # 去除最大数值相同的项
+    #     print(num_list)
+    #     print(len(num_list))
+    #     if len(num_list):   # 判断数组里是否仍有值
+    #         second_max_num = num_list[1]
+    #     else:
+    #         print('改数组没有第2大的数字')
+    #     print(f"数组中第二大的数为{second_max_num}")
+
+
+# find_second_max_num([342, 123, 23, 43, 72, 903, 903])
+find_second_max_num([903, 903])
 
 
 """
@@ -75,13 +89,6 @@ def get_file_name(file_dir):
 
 
 get_file_name('data/')
-
-
-
-
-
-
-
 
 
 list_a = [1, 1, 1, 1, 1, 20]
