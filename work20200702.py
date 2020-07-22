@@ -15,14 +15,20 @@ api: {"api_url": "https://api.chumanapp.com", "user_id": 3}
 def find_second_max_num(num_list: tuple):
     tmp_list = []
     for i in num_list:
-        if isinstance(i, list):
+        if isinstance(i, list):     #
             find_second_max_num(i)
-            if i not in tmp_list:
-                if isinstance(i, int):
-                    tmp_list.append()
-
-
-
+            break
+        elif isinstance(i, int) and i not in tmp_list:  # 判断是否为数字并不在列表中
+            tmp_list.append(i)
+    else:
+        # 判断是否有大于等于2个不同的数字
+        if len(tmp_list) > 1:
+            # 进行倒序
+            tmp_list.sort(reverse=True)
+        else:
+            return '没有第二大的数字'
+    # 取第二大的数
+    return tmp_list[1]
 
 
     # tmp_list = []
@@ -43,7 +49,7 @@ def find_second_max_num(num_list: tuple):
 
 
 # find_second_max_num([342, 123, 23, 43, 72, 903, 903])
-find_second_max_num([903, 903])
+print(find_second_max_num([903, 'test', 903]))
 
 
 """
@@ -62,17 +68,17 @@ def get_env_key(env, key):
             line = line.strip('\n')        # 去掉换行符
             a = line.split(':', 1)      # 以第1个:符号作为分割，用于下面转换为字典
             config_list.append(a)
-
+    # 将配置文件字典化
     config_dict = dict(config_list)
-    print(config_dict)
 
-    if env in config_dict:
-        if key in config_dict[env]:
-            env_config = json.loads(config_dict[env])       # 导入json库，进行json转换
-            return env_config[key]
+    if env in config_dict and key in config_dict[env]:
+        env_config = json.loads(config_dict[env])       # 导入json库，进行json转换
+        return env_config[key]
+    else:
+        return '不存在该值'
 
 
-get_env_key('demo', 'api_url')
+print(get_env_key('demo', 'api_url'))
 
 
 """
@@ -90,9 +96,3 @@ def get_file_name(file_dir):
 
 get_file_name('data/')
 
-
-list_a = [1, 1, 1, 1, 1, 20]
-
-print(list_a.remove(1))
-
-print(list_a)
