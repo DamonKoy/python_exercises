@@ -1,3 +1,6 @@
+import requests
+import random
+
 """
 1、有2个字典如下，从中找出价格小于1000，并且颜色不是红色的所有产品名称和颜色的组合
 name_price = {"test1":876,"test2":1653,"test3":15,"test4":2876}
@@ -57,10 +60,10 @@ class People:
         return self.__dict__
 
 
-p = People('小胖', 18, '13700000001', '广东省天河区')
-print(p.eat('甜筒'))
-print(p.print_user_info())
-
+# p = People('小胖', 18, '13700000001', '广东省天河区')
+# print(p.eat('甜筒'))
+# print(p.print_user_info())
+#
 
 """
 3、定义一个Student类，继承自People类
@@ -85,6 +88,80 @@ class Student(People):
         return self.__class
 
 
-s = Student('小胖', 18, '13700000001', '广东省天河区', '大二', '一班')
-s.set_class('四班')
-print(s.print_user_info())
+# s = Student('小胖', 18, '13700000001', '广东省天河区', '大二', '一班')
+# s.set_class('四班')
+# print(s.print_user_info())
+
+
+# 4、新建一个py文件（和People类、Student类不在同一个文件），在该文件中调用各实例化一个People类和Student类的对象，并调用这些对象可以调用的方法
+# 具体请查看connet_20200717.py文件
+
+
+"""
+5、安装第三方库requests，熟悉并发送以下请求
+（1）m=Api&c=User&a=token（获取某个用户的install_token）
+（2）m=Api&c=User&a=user_profile（通过获得的install_token查询用户信息）
+（3）m=Api&c=User&a=user_edit（在用户当前签名的后面加上4个随机数字）
+"""
+
+
+class User:
+
+    def __init__(self):
+        self.api_url = 'http://api-demo.chumanapp.com/secure/'
+        self.headers = ''
+        self.install_token = ''
+
+    def get_token(self, user_id):
+        """
+        获取某个用户的install_token
+        """
+        params = {
+            'm': 'Api',
+            'c': 'User',
+            'a': 'token',
+            'id': user_id,
+        }
+        res = requests.get(self.api_url, params=params).json()
+        self.install_token = res['data']['install_token']
+        self.headers = {'Mauthorization':f"8cc4a3ffb5eef4b5f569ca110d390ee7:{self.install_token}"}
+        return self.install_token
+
+    def user_profile(self):
+        """
+        查询用户信息
+        """
+        params = {
+            'm': 'Api',
+            'c': 'User',
+            'a': 'user_profile',
+        }
+        return requests.get(self.api_url, params=params, headers=self.headers)
+
+    def user_edit(self, intro):
+        """
+        编辑用户简介签名
+        """
+        params = {
+            'm': 'Api',
+            'c': 'User',
+            'a': 'user_profile',
+        }
+        data = {
+            'intro': intro,
+        }
+        return requests.post(self.api_url, params=params, data=data, headers=self.headers)
+
+    def to_edit_intro(self, user_id):
+        """
+        修改用户简介签名流程
+        """
+        num = random.randint(0000, 9999)
+
+        self.get_token(user_id)
+        intro = self.user_profile().json()['data']['intro'] + f"{num}"
+        return self.user_edit(intro).json()
+
+
+u = User()
+u.to_edit_intro('41577481')
